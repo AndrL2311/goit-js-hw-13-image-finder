@@ -1,6 +1,6 @@
 import refs from './refs';
-// import renderCountryCard from './renderMarkup';
-import fetchGallery from './fetchGallery';
+import renderGalleryCard from './renderMarkup';
+import fetchGallery from './apiService';
 
 
 
@@ -15,8 +15,8 @@ function search(event) {
   console.log('searchQuery', searchQuery);
  
   if (searchQuery.length > 1) {
-//     // return fetchCountries(searchQuery).then(renderCountryCard);
-  return fetchGallery(searchQuery);
+    return fetchGallery(searchQuery).then(renderGalleryCard);
+  // return fetchGallery(searchQuery);
   }
  };
 

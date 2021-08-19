@@ -1,11 +1,10 @@
 // // блок добавления html
-// import refs from './refs';
-// import countryTpl from '../templates/country.hbs';
-// import listOfCountriesTpl from '../templates/listOfCountries.hbs';
+import refs from './refs';
+import galleryTpl from '../templates/gallery.hbs';
 // import error from './pnotify';
 
 
-// function renderCountryCard(data) {
+function renderGalleryCard(data) {
     
 //     // Проверка получен ли коректный ответ 
 //     console.log(!data);
@@ -29,12 +28,16 @@
 //     } else if (data.length === 1) {
 //         return renderMarkup(countryTpl, data);
 //     }
-// }
+  console.log(data);
+ const markup = galleryTpl(data);
+  return refs.galleryContainer.insertAdjacentHTML('beforeend', markup);
+  
+}
 
 // // Функция добавления разметки
 // function renderMarkup(templateFn, data) {
 //   const markup = templateFn(data);
-//   return refs.countryContainer.insertAdjacentHTML('beforeend', markup);
+//   return refs.galleryContainer.insertAdjacentHTML('beforeend', markup);
 // }
 
-// export default renderCountryCard;
+export default renderGalleryCard;
