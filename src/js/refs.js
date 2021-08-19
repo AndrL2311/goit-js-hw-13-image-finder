@@ -1,8 +1,8 @@
 // блок ссылок
-const searchInput = document.querySelector('.search-input');
-const countryContainer = document.querySelector('.country-container');
+const searchForm = document.querySelector('.search-form');
+const galleryContainer = document.querySelector('.gallery-container');
 
 export default {
-    searchInput,
-    countryContainer,
+    searchForm,
+    galleryContainer,
 }

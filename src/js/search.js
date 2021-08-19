@@ -1,21 +1,26 @@
 import refs from './refs';
-import renderCountryCard from './renderMarkup';
-import fetchCountries from './fetchCountries';
-import debounce from 'lodash.debounce';
+// import renderCountryCard from './renderMarkup';
+import fetchGallery from './fetchGallery';
 
-refs.searchInput.addEventListener('input', debounce(search, 500));
+
+
+refs.searchForm.addEventListener('submit', search);
 
 function search(event) {
-    const searchQuery = event.target.value;
-    // console.log('searchQuery', searchQuery);
-    clearSearchInput();
-    // if (searchQuery !== '') {
-       if (searchQuery.length > 1) {
-    return fetchCountries(searchQuery).then(renderCountryCard);
+  console.dir(event.target);
+    event.preventDefault();
+  const searchQuery = event.currentTarget.elements.query.value;
+//   clearSearchFormContainer();
+
+  console.log('searchQuery', searchQuery);
+ 
+  if (searchQuery.length > 1) {
+//     // return fetchCountries(searchQuery).then(renderCountryCard);
+  return fetchGallery(searchQuery);
   }
  };
 
- function clearSearchInput() {
-  refs.countryContainer.innerHTML = '';
-}
+//  function clearSearchFormContainer() {
+//   refs.countryContainer.innerHTML = '';
+// }
 export default search;
