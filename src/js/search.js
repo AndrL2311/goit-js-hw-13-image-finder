@@ -1,33 +1,52 @@
 import refs from './refs';
 import renderGalleryCard from './renderMarkup';
 import ApiService from './apiService';
+import LoadMoreBtn from './components/load-more-btn';
 
+// Создаем экземпляры
 const apiService = new ApiService();
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '[data-action="load-more"]',
+  hidden: true,
+});
+console.log(loadMoreBtn);
 
+
+
+//  Слушатели
 refs.searchForm.addEventListener('submit', search);
-refs.loadMoreBtn.addEventListener('click', onLoadMore);
+loadMoreBtn.refs.button.addEventListener('click', fetchHitsGallery);
 
 function search(event) {
-  // console.dir(event.target);
-    event.preventDefault();
+  // Чтобы страницка не перегружалась
+  event.preventDefault();
+  // Передаем значение инпута в apiService.query
   apiService.query = event.currentTarget.elements.query.value;
-//   clearSearchFormContainer();
-
- 
-  if (apiService.query.length > 1) {
-    return apiService.fetchGallery().then(renderGalleryCard);
-  // return apiService.fetchGallery(searchQuery);
+  // Проверка на пустую строку
+  if (apiService.query === '') {
+    return alert('Введите ключевое слово по которому искать фотографии');
   }
- };
+  //  Переключаем вид кнопки
+  loadMoreBtn.show();
+  // Сбрасываем счетчик страниц
+  apiService.resetPage();
+  // Чистим контейнер галереи
+  clearSearchFormContainer();
+   // Добавляем контейнер галереи
+  fetchHitsGallery();
+  };
 
-//  function clearSearchFormContainer() {
-//   refs.countryContainer.innerHTML = '';
-// }
+ function clearSearchFormContainer() {
+  refs.galleryContainer.innerHTML = '';
+}
 
-
-function onLoadMore() {
-  console.log('хочу еще');
- return apiService.fetchGallery().then(renderGalleryCard);
+function fetchHitsGallery() {
+    loadMoreBtn.disable();
+  return apiService.fetchGallery().then(hits => {
+    renderGalleryCard(hits);
+    loadMoreBtn.enable();
+  });
 };
+
 
 export default search;
