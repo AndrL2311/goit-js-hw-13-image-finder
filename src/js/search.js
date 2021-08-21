@@ -45,6 +45,12 @@ function fetchHitsGallery() {
   return apiService.fetchGallery().then(hits => {
     renderGalleryCard(hits);
     loadMoreBtn.enable();
+    // Страница должна автоматически плавно проскроливаться
+      const element = loadMoreBtn.refs.button;
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+          });
   });
 };
 
