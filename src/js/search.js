@@ -1,26 +1,33 @@
 import refs from './refs';
 import renderGalleryCard from './renderMarkup';
-import fetchGallery from './apiService';
+import ApiService from './apiService';
 
-
+const apiService = new ApiService();
 
 refs.searchForm.addEventListener('submit', search);
+refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 function search(event) {
-  console.dir(event.target);
+  // console.dir(event.target);
     event.preventDefault();
-  const searchQuery = event.currentTarget.elements.query.value;
+  apiService.query = event.currentTarget.elements.query.value;
 //   clearSearchFormContainer();
 
-  console.log('searchQuery', searchQuery);
  
-  if (searchQuery.length > 1) {
-    return fetchGallery(searchQuery).then(renderGalleryCard);
-  // return fetchGallery(searchQuery);
+  if (apiService.query.length > 1) {
+    return apiService.fetchGallery().then(renderGalleryCard);
+  // return apiService.fetchGallery(searchQuery);
   }
  };
 
 //  function clearSearchFormContainer() {
 //   refs.countryContainer.innerHTML = '';
 // }
+
+
+function onLoadMore() {
+  console.log('хочу еще');
+ return apiService.fetchGallery().then(renderGalleryCard);
+};
+
 export default search;
