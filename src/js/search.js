@@ -2,6 +2,7 @@ import refs from './refs';
 import renderGalleryCard from './renderMarkup';
 import ApiService from './apiService';
 import LoadMoreBtn from './components/load-more-btn';
+import lightBox from './components/lightbox';
 
 // Создаем экземпляры
 const apiService = new ApiService();
@@ -34,6 +35,7 @@ function search(event) {
   clearSearchFormContainer();
    // Добавляем контейнер галереи
   fetchHitsGallery();
+  lightBox();
   };
 
  function clearSearchFormContainer() {
@@ -51,6 +53,7 @@ function fetchHitsGallery() {
             behavior: 'smooth',
             block: 'end',
           });
+    
   });
 };
 
