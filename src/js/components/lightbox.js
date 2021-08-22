@@ -8,11 +8,12 @@ export default function lightBox() {
 }
 
 function onClick(event) {
-  if (refs.picture().nodeName !== 'IMG') {
+  const imageRef = event.target;
+  // Проверяем тип узла, если не картинка выходим из функции
+  if (imageRef.nodeName !== 'IMG') {
     return;
   }
-  const imageRef = event.target;
-  // console.log(imageRef.dataset);
+  // console.log(imageRef.nodeName);
   const { source } = imageRef.dataset;
   const { alt } = imageRef;
   const instance = basicLightbox.create(
