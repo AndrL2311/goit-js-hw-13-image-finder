@@ -108,11 +108,11 @@ img {
 }
 
 .stats-item:hover {
-  color: rgb(79, 67, 190);
+  color: #0e3dfa;
 }
 
 .stats-item:hover > .material-icon {
-  color: rgb(79, 67, 190);
+  color: #0e3dfa;
 }
 
 .material-icons {

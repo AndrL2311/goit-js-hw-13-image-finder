@@ -3,6 +3,7 @@ import renderGalleryCard from './renderMarkup';
 import ApiService from './apiService';
 import LoadMoreBtn from './components/load-more-btn';
 import lightBox from './components/lightbox';
+import inform from './components/pnotify';
 
 // Создаем экземпляры
 const apiService = new ApiService();
@@ -10,7 +11,7 @@ const loadMoreBtn = new LoadMoreBtn({
   selector: '[data-action="load-more"]',
   hidden: true,
 });
-console.log(loadMoreBtn);
+// console.log(loadMoreBtn);
 
 
 
@@ -25,7 +26,12 @@ function search(event) {
   apiService.query = event.currentTarget.elements.query.value;
   // Проверка на пустую строку
   if (apiService.query === '') {
-    return alert('Введите ключевое слово по которому искать фотографии');
+      return inform({
+      text: `Введите ключевое слово по которому искать фотографии`,
+      delay: 2000,
+      icon: true,
+    });
+    // return alert('Введите ключевое слово по которому искать фотографии');
   }
   //  Переключаем вид кнопки
   loadMoreBtn.show();
@@ -35,6 +41,7 @@ function search(event) {
   clearSearchFormContainer();
    // Добавляем контейнер галереи
   fetchHitsGallery();
+  // Запускаем плагин модального окна
   lightBox();
   };
 
@@ -46,7 +53,8 @@ function fetchHitsGallery() {
     loadMoreBtn.disable();
   return apiService.fetchGallery().then(hits => {
     renderGalleryCard(hits);
-    loadMoreBtn.enable();
+    hits.length < 12 ? loadMoreBtn.hide() :  loadMoreBtn.show();
+      loadMoreBtn.enable();
     // Страница должна автоматически плавно проскроливаться
       const element = loadMoreBtn.refs.button;
           element.scrollIntoView({
