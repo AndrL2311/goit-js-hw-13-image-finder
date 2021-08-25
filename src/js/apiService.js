@@ -24,17 +24,20 @@ export default class ApiService{
 
   // Функция реализована через асинхронные функции
   async fetchGallery() {
-  // console.log(this);
-  const url = `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`;
-  //  console.log(url);
-    const response = await fetch(url);
-    const hits = await response.json();
-    const item = ({ hits }) => {
-      this.incrementPage();
-      return hits;
-    };
-    // console.log(hits);
-    return await item(hits);
+    try{
+      // console.log(this);
+      const url = `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`;
+      //  console.log(url);
+      const response = await fetch(url);
+      const hits = await response.json();
+      const item = ({ hits }) => {
+        this.incrementPage();
+        return hits;
+      };
+      // console.log(hits);
+      return await item(hits);
+    }
+    catch (error) { console.log(error);}
   }
   
     incrementPage() {

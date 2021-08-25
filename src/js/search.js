@@ -23,7 +23,7 @@ function search(event) {
   // Чтобы страницка не перегружалась
   event.preventDefault();
   // Передаем значение инпута в apiService.query
-  apiService.query = event.currentTarget.elements.query.value;
+  apiService.query = event.currentTarget.elements.query.value.trim();
   // Проверка на пустую строку
   if (apiService.query === '') {
       return inform({
